@@ -1,0 +1,38 @@
+.ui.modal > .header {
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+.ui.card > .content > .header {
+  padding: 10px 0 !important;
+}
+
+.ui.modal > .content > .description {
+  margin: 10px 30px;
+}
+.ui.fluid.button {
+  margin: 15px 0;
+}
+
+.username {
+  display: inline !important;
+  margin: 0px 10px;
+  color: rgba(0, 0, 0, 0.4);
+}
+.ui.warning.message {
+  font-family: monospace;
+}
+
+.ui.warning.message .header {
+  padding: 10px 0 !important;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+.ui.secondary.pointing.menu {
+  font-family: monospace;
+}
+
+.ui.fluid.button {
+  font-family: monospace;
+}

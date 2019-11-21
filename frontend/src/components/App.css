@@ -1,0 +1,7 @@
+body {
+  background-color: rgba(239, 240, 244, 0.2) !important;
+}
+
+#safearea {
+  margin: 20px 20px 20px 230px;
+}

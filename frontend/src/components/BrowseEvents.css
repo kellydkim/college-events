@@ -1,0 +1,33 @@
+h4.ui.header {
+  font-family: monospace;
+  font-weight: normal;
+}
+
+.ui.items > .item > .image:not(.ui) {
+  width: 40px;
+}
+
+#day {
+  font-weight: bold;
+  font-size: xx-large;
+  text-transform: uppercase;
+  margin: 0 0 -15px 0;
+}
+
+.ReactTable .-pagination {
+  font-family: monospace;
+  box-shadow: none;
+  text-transform: uppercase;
+}
+
+.ReactTable .-header {
+  font-family: monospace;
+  box-shadow: none;
+  text-transform: uppercase;
+}
+
+.ReactTable .-btn {
+  font-family: monospace;
+  font-family: monospace;
+  text-transform: uppercase;
+}
