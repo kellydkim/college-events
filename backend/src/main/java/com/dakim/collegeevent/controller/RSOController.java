@@ -3,11 +3,9 @@ package com.dakim.collegeevent.controller;
 import com.dakim.collegeevent.model.RSO;
 import com.dakim.collegeevent.repository.RSORepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +15,7 @@ public class RSOController {
     RSORepository rsoRepository;
 
     @GetMapping("/getByName")
-    public RSO getIdByName(@RequestParam String name) {
+    public RSO getByName(@RequestParam String name) {
         return rsoRepository.getByName(name);
     }
 
@@ -26,4 +24,8 @@ public class RSOController {
         return rsoRepository.findAll();
     }
 
+    @PostMapping("/add")
+    public RSO post(@Valid @RequestBody RSO rso) {
+        return rsoRepository.save(rso);
+    }
 }

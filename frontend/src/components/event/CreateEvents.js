@@ -1,10 +1,13 @@
+// Styles
+import './styles/CreateEvents.css';
+
 import React from 'react';
 import { Segment, Form, Button, Dropdown } from 'semantic-ui-react';
 import { DateTimeInput } from 'semantic-ui-calendar-react';
 import Axios from 'axios';
 
-import './CreateEvents.css';
-import AutoComplete from './AutoComplete';
+// Components
+import MapsAutoComplete from '../MapsAutoComplete';
 
 const api = 'http://localhost:8080/';
 
@@ -165,7 +168,7 @@ class CreateEvents extends React.Component {
               </Form.Input>
             </Form.Group>
             <label>Location</label>
-            <AutoComplete handleOnSelect={this.onSelectLocation} />
+            <MapsAutoComplete handleOnSelect={this.onSelectLocation} />
             <div align='right'>
               <Button type='submit' onClick={this.onSubmit}>
                 Submit

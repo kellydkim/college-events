@@ -1,0 +1,83 @@
+// Styles
+import './styles/CreateRSOs.css';
+
+import React from 'react';
+import { Form, Segment, Dropdown } from 'semantic-ui-react';
+import Axios from 'axios';
+
+class CreateRSOs extends React.Component {
+  state = { allUsers: null, admin: null, description: undefined };
+
+  componentDidMount() {
+    Axios.get('http://localhost:8080/user/getAll').then(res => {
+      this.setState({
+        allUsers: res.data.map(user => {
+          return {
+            key: user.id,
+            text: user.contact.email,
+            value: user.username
+          };
+        })
+      });
+    });
+  }
+
+  onSelectUser = (e, data) => {
+    Axios.get('http://localhost:8080/user/getByUsername', {
+      params: { name: data.value }
+    }).then(res => {
+      this.setState({ admin: res.data });
+    });
+  };
+
+  onChangeName = (e, { value }) => this.setState({ name: value });
+
+  onChangeDescription = (e, { value }) => this.setState({ description: value });
+
+  onSubmit = () => {
+    console.log({
+      name: this.state.name,
+      description: this.state.description,
+      admin: this.state.admin
+    });
+    Axios.post('http://localhost:8080/rso/add', {
+      name: this.state.name,
+      description: this.state.description,
+      admin: this.state.admin
+    }).then(res => {
+      console.log(res);
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <Segment>
+          <Form>
+            <Form.Group widths='equal'>
+              <Form.Input fluid label='Name' onChange={this.onChangeName} />
+              <Form.Input fluid label='Admin'>
+                <Dropdown
+                  fluid
+                  onChange={this.onSelectUser}
+                  selection
+                  search
+                  options={this.state.allUsers}
+                />
+              </Form.Input>
+            </Form.Group>
+            <Form.TextArea
+              label='Description'
+              onChange={this.onChangeDescription}
+            />
+            <div align='right'>
+              <Form.Button onClick={this.onSubmit}>Submit</Form.Button>
+            </div>
+          </Form>
+        </Segment>
+      </div>
+    );
+  }
+}
+
+export default CreateRSOs;

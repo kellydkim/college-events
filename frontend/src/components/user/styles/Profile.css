@@ -1,0 +1,19 @@
+.ui.modal > .content > .description {
+  padding: 0 0 0 21px;
+}
+
+.ui.card > .content > .header {
+  font-family: monospace;
+  font-weight: normal !important;
+  padding: 0px !important;
+}
+
+.ui.modal > .header {
+  font-family: monospace;
+  font-weight: normal !important;
+  padding: 21px !important;
+}
+
+.ui.modal .actions > .button {
+  margin: 0px;
+}

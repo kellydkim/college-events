@@ -1,7 +1,9 @@
 import React from 'react';
 import { Segment, Form } from 'semantic-ui-react';
-import AutoComplete from './AutoComplete';
 import Axios from 'axios';
+
+// Components
+import MapsAutoComplete from '../MapsAutoComplete';
 
 class CreateUniversities extends React.Component {
   state = {
@@ -18,9 +20,11 @@ class CreateUniversities extends React.Component {
   onChangeName = (e, { value }) => {
     this.setState({ name: value });
   };
+
   onChangeDescription = (e, { value }) => {
     this.setState({ description: value });
   };
+
   onChangeImageURL = (e, { value }) => {
     this.setState({ imageURL: value });
   };
@@ -31,6 +35,8 @@ class CreateUniversities extends React.Component {
       description: this.state.description,
       imageURL: this.state.imageURL,
       googlePlaceId: this.state.googlePlaceId
+    }).then(res => {
+      console.log(res);
     });
   };
 
@@ -46,7 +52,7 @@ class CreateUniversities extends React.Component {
                 onChange={this.onChangeName}
               ></Form.Input>
               <Form.Input fluid label='Location'>
-                <AutoComplete handleOnSelect={this.onSelectLocation} />
+                <MapsAutoComplete handleOnSelect={this.onSelectLocation} />
               </Form.Input>
             </Form.Group>
             <Form.TextArea

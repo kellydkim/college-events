@@ -1,20 +1,12 @@
+// Styles
+import 'react-table/react-table.css';
+import './styles/BrowseEvents.css';
+
 import React from 'react';
-import {
-  Segment,
-  Header,
-  Item,
-  Table,
-  Menu,
-  Icon,
-  Pagination
-} from 'semantic-ui-react';
+import { Segment, Header, Item, Table } from 'semantic-ui-react';
 import axios from 'axios';
 import Moment from 'react-moment';
 import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-
-import './BrowseEvents.css';
-import moment from 'moment';
 
 const api = 'http://localhost:8080/';
 

@@ -1,10 +1,9 @@
-CREATE DATABASE college_events;
+CREATE DATABASE college_events_test;
 
-USE college_events;
+USE college_events_test;
 
 CREATE TABLE universities(
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) UNIQUE NOT NULL,
+  name VARCHAR(100) PRIMARY KEY,
   google_place_id VARCHAR(500) NOT NULL,
   univ_description VARCHAR(10000),
   no_of_students INT,
@@ -12,31 +11,28 @@ CREATE TABLE universities(
 );
 
 CREATE TABLE contacts(
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(100) PRIMARY KEY,
   f_name VARCHAR(50),
   l_name VARCHAR(50),
-  email VARCHAR(100) UNIQUE NOT NULL,
   phone_no VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE users(
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  profile_image_url VARCHAR(500) DEFAULT 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png',
-  username VARCHAR(100) NOT NULL,
+  username VARCHAR(100) PRIMARY KEY,
   password VARCHAR(255) NOT NULL,
+  profile_image_url VARCHAR(500) DEFAULT 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png',
   role_type ENUM('super admin', 'admin', 'student') DEFAULT 'student',
-  contact_id INT NOT NULL,
-  univ_id INT NOT NULL,
-  FOREIGN KEY (contact_id) REFERENCES contacts(id),
-  FOREIGN KEY (univ_id) REFERENCES universities(id)
+  email VARCHAR(100) NOT NULL,
+  university VARCHAR(100) NOT NULL,
+  FOREIGN KEY (email) REFERENCES contacts(email),
+  FOREIGN KEY (university) REFERENCES universities(name)
 );
 
 CREATE TABLE rsos(
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) UNIQUE NOT NULL,
+  name VARCHAR(100) PRIMARY,
   rso_description VARCHAR(10000),
-  admin_id INT NOT NULL,
-  univ_id INT NOT NULL,
+  admin_username VARCHAR(100) NOT NULL,
+  university VARCHAR(100) NOT NULL,
   FOREIGN KEY (admin_id) REFERENCES users(id),
   FOREIGN KEY (univ_id) REFERENCE universities(id)
 );

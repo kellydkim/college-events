@@ -1,15 +1,19 @@
+// Styles
+import './styles/SideMenu.css';
+
 import React from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
-import './SideMenu.css';
 import { Link } from 'react-router-dom';
 
 class SideMenu extends React.Component {
-  state = {};
+  state = { activeItem: undefined, user: this.props.getUser };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { activeItem } = this.state;
+    const user = this.state.user;
+    const activeItem = this.state.activeItem;
+
     return (
       <div id='side'>
         <Menu fixed='left' pointing secondary vertical>
@@ -25,11 +29,36 @@ class SideMenu extends React.Component {
               <Icon name='newspaper outline' />
               Browse
             </Menu.Item>
+            {user.role === 'admin' || user.role === 'super admin' ? (
+              <Menu.Item
+                as={Link}
+                to='/event/create'
+                name='Create'
+                active={activeItem === 'Create'}
+                onClick={this.handleItemClick}
+              >
+                <Icon name='plus square outline' />
+                Create
+              </Menu.Item>
+            ) : null}
+          </Menu.Menu>
+          <Menu.Menu>
+            <Menu.Header>RSO</Menu.Header>
             <Menu.Item
               as={Link}
-              to='/event/create'
-              name='Create'
-              active={activeItem === 'Create'}
+              to='/rso/browse'
+              name='rBrowse'
+              active={activeItem === 'rBrowse'}
+              onClick={this.handleItemClick}
+            >
+              <Icon name='newspaper outline' />
+              Browse
+            </Menu.Item>
+            <Menu.Item
+              as={Link}
+              to='/rso/create'
+              name='rCreate'
+              active={activeItem === 'rCreate'}
               onClick={this.handleItemClick}
             >
               <Icon name='plus square outline' />
@@ -37,13 +66,12 @@ class SideMenu extends React.Component {
             </Menu.Item>
             <Menu.Item
               as={Link}
-              to='/event/edit'
-              name='Edit'
-              active={activeItem === 'Edit'}
+              to='/rso/manage'
+              name='rManage'
+              active={activeItem === 'rManage'}
               onClick={this.handleItemClick}
             >
-              <Icon name='edit outline' />
-              Edit
+              <Icon name='edit outline' /> Manage
             </Menu.Item>
           </Menu.Menu>
           <Menu.Menu>
@@ -60,12 +88,12 @@ class SideMenu extends React.Component {
             </Menu.Item>
             <Menu.Item
               as={Link}
-              to='/university/edit'
-              name='uEdit'
-              active={activeItem === 'uEdit'}
+              to='/university/manage'
+              name='uManage'
+              active={activeItem === 'uManage'}
               onClick={this.handleItemClick}
             >
-              <Icon name='edit outline' /> Edit
+              <Icon name='edit outline' /> Manage
             </Menu.Item>
           </Menu.Menu>
         </Menu>
