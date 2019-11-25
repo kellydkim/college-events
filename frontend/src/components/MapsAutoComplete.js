@@ -13,7 +13,7 @@ export default class AutoComplete extends Component {
         address: result.description
       },
       result => {
-        this.props.handleOnSelect(result[0].place_id);
+        this.props.handleonselect(result[0].place_id);
       }
     );
     this.setState({ value: result.title, selectedPlace: result });
@@ -48,19 +48,17 @@ export default class AutoComplete extends Component {
     const { isLoading, value, results, selectedPlace } = this.state;
 
     return (
-      <div>
-        <Search
-          fluid
-          loading={isLoading}
-          onResultSelect={this.handleResultSelect}
-          onSearchChange={debounce(this.handleSearchChange, 500, {
-            leading: true
-          })}
-          results={results}
-          value={value}
-          {...this.props}
-        />
-      </div>
+      <Search
+        fluid
+        loading={isLoading}
+        onResultSelect={this.handleResultSelect}
+        onSearchChange={debounce(this.handleSearchChange, 500, {
+          leading: true
+        })}
+        results={results}
+        value={value}
+        {...this.props}
+      />
     );
   }
 }

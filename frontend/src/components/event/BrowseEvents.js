@@ -13,26 +13,50 @@ const api = 'http://localhost:8080/';
 class BrowseEvents extends React.Component {
   state = {
     upcomingEvents: [],
-    events: []
+    events: [],
+    user: this.props.getUser()
   };
   componentDidMount() {
-    axios.get(`${api}event/getUpcoming`).then(res => {
+    if (this.state.user == null) {
+      axios.get('http://localhost:8080/event/getAll').then(res => {
+        console.log(res.data);
+        this.setState({
+          events: res.data.map(event => {
+            return {
+              name: event.name,
+              start: event.start,
+              end: event.end,
+              description: event.description,
+              location: event.googlePlaceId
+            };
+          })
+        });
+      });
+    } else {
+      console.log(this.state.user.university.name);
+      axios
+        .get('http://localhost:8080/event/getByUniversity', {
+          params: { university: this.state.user.university.name }
+        })
+        .then(res => {
+          console.log(res.data);
+          this.setState({
+            events: res.data.map(event => {
+              return {
+                name: event.name,
+                start: event.start,
+                end: event.end,
+                description: event.description,
+                location: event.googlePlaceId
+              };
+            })
+          });
+        });
+    }
+
+    axios.get('http://localhost:8080/event/getUpcoming').then(res => {
       console.log(res.data);
       this.setState({ upcomingEvents: res.data });
-    });
-    axios.get(`${api}event/getAll`).then(res => {
-      console.log(res.data);
-      this.setState({
-        events: res.data.map(event => {
-          return {
-            name: event.name,
-            start: event.start,
-            end: event.end,
-            description: event.description,
-            location: event.googlePlaceId
-          };
-        })
-      });
     });
   }
 
@@ -101,15 +125,6 @@ class BrowseEvents extends React.Component {
                         <Moment format='LT' date={row._original.end} />
                       </div>
                     );
-                  }
-                },
-
-                {
-                  Header: 'Location',
-                  accessor: 'location',
-                  Cell: ({ row }) => {
-                    console.log('before', row.location);
-                    return <div></div>;
                   }
                 },
                 { Header: 'Description', accessor: 'description' }

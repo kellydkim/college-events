@@ -3,3 +3,7 @@ label {
   font-weight: normal !important;
   text-transform: uppercase !important;
 }
+
+.ui.top.attached.header {
+  text-transform: uppercase;
+}

@@ -22,7 +22,7 @@ class SignUp extends React.Component {
       this.setState({
         allUniversities: res.data.map(university => {
           return {
-            key: university.id,
+            key: university.name,
             text: university.name,
             value: university.name
           };
@@ -45,8 +45,11 @@ class SignUp extends React.Component {
         password: this.props.state.password,
         contact: res.data,
         university: this.state.university
+      }).then(res => {
+        console.log(res);
       });
     });
+    this.props.onModalClick();
   };
 
   onChangeUsername = (e, { value }) => {

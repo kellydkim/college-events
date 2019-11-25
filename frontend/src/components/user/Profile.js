@@ -3,12 +3,21 @@ import './styles/Profile.css';
 
 import React from 'react';
 import { Modal, Card, Image, Icon, Button, Segment } from 'semantic-ui-react';
+import Axios from 'axios';
 
 class Profile extends React.Component {
   state = {
-    user: this.props.getUser()
+    user: this.props.getUser(),
+    joinedRSOs: []
   };
 
+  componentDidMount() {
+    Axios.get('http://localhost:8080/user/getRsos', {
+      params: { username: this.state.user.username }
+    }).then(res => {
+      this.state.joinedRSOs(res.data);
+    });
+  }
   onSignOut = () => {
     this.props.setUser(null);
   };
@@ -48,7 +57,11 @@ class Profile extends React.Component {
             </Card.Content>
           </Card>
           <Modal.Description>
-            <Segment />
+            <Segment>
+              {this.state.joinedRSOs.map(rso => {
+                <Segment>{rso}</Segment>;
+              })}
+            </Segment>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>

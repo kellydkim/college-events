@@ -70,6 +70,7 @@ class TopMenu extends React.Component {
                       <SignIn
                         setUsername={this.onChangeUsername}
                         setPassword={this.onChangePassword}
+                        onModalClick={this.onModalClick}
                         state={this.state}
                         setUser={this.props.setUser}
                       />
@@ -83,6 +84,7 @@ class TopMenu extends React.Component {
                       <SignUp
                         setUsername={this.onChangeUsername}
                         setPassword={this.onChangePassword}
+                        onModalClick={this.onModalClick}
                         state={this.state}
                         setUser={this.props.setUser}
                       />

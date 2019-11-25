@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Form } from 'semantic-ui-react';
+import { Segment, Form, Header } from 'semantic-ui-react';
 import Axios from 'axios';
 
 // Components
@@ -14,6 +14,7 @@ class CreateUniversities extends React.Component {
   };
 
   onSelectLocation = googlePlaceId => {
+    console.log(googlePlaceId);
     this.setState({ googlePlaceId });
   };
 
@@ -43,7 +44,10 @@ class CreateUniversities extends React.Component {
   render() {
     return (
       <div>
-        <Segment>
+        <Header attached='top' as='h4'>
+          Create University
+        </Header>
+        <Segment attached>
           <Form>
             <Form.Group widths='equal'>
               <Form.Input

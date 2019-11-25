@@ -3,8 +3,17 @@ import React from 'react';
 class Home extends React.Component {
   render() {
     return (
-      <div style={{ backgroundColor: 'red', width: '100vh', height: '100vh' }}>
-        WORK
+      <div
+        style={{
+          fontSize: '20px',
+          fontFamily: 'monospace',
+          margin: 'auto',
+          textAlign: 'center'
+        }}
+      >
+        Welcome
+        <br /> to
+        <br /> College Events Dashboard
       </div>
     );
   }

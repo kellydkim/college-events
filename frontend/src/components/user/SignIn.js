@@ -17,15 +17,14 @@ class SignIn extends React.Component {
       username: this.props.state.username,
       password: this.props.state.password
     }).then(res => {
+      console.log(res.data);
       if (res.data) {
         this.props.setUser(res.data);
-        this.setState({ modalOpen: false });
+        this.props.onModalClick();
       } else {
         this.setState({ logInError: true });
       }
     });
-
-    this.props.onModalClick();
   };
 
   onChangeUsername = (e, { value }) => {
@@ -63,7 +62,7 @@ class SignIn extends React.Component {
           </Form>
           {this.state.logInError ? (
             <Message warning>
-              <Message.Header>
+              <Message.Header as='h4'>
                 Wrong username and password combination
               </Message.Header>
               <p>Please try again or sign up</p>

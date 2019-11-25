@@ -2,11 +2,16 @@
 import './styles/CreateRSOs.css';
 
 import React from 'react';
-import { Form, Segment, Dropdown } from 'semantic-ui-react';
+import { Form, Segment, Dropdown, Header } from 'semantic-ui-react';
 import Axios from 'axios';
 
 class CreateRSOs extends React.Component {
-  state = { allUsers: null, admin: null, description: undefined };
+  state = {
+    user: this.props.getUser(),
+    allUsers: null,
+    admin: null,
+    description: undefined
+  };
 
   componentDidMount() {
     Axios.get('http://localhost:8080/user/getAll').then(res => {
@@ -35,15 +40,12 @@ class CreateRSOs extends React.Component {
   onChangeDescription = (e, { value }) => this.setState({ description: value });
 
   onSubmit = () => {
-    console.log({
+    console.log(this.state.user);
+    Axios.post('http://localhost:8080/request/add', {
       name: this.state.name,
       description: this.state.description,
-      admin: this.state.admin
-    });
-    Axios.post('http://localhost:8080/rso/add', {
-      name: this.state.name,
-      description: this.state.description,
-      admin: this.state.admin
+      admin: this.state.admin,
+      university: this.state.user.university
     }).then(res => {
       console.log(res);
     });
@@ -52,7 +54,10 @@ class CreateRSOs extends React.Component {
   render() {
     return (
       <div>
-        <Segment>
+        <Header as='h4' attached='top'>
+          Create RSO
+        </Header>
+        <Segment attached>
           <Form>
             <Form.Group widths='equal'>
               <Form.Input fluid label='Name' onChange={this.onChangeName} />
