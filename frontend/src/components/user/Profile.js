@@ -8,14 +8,18 @@ import Axios from 'axios';
 class Profile extends React.Component {
   state = {
     user: this.props.getUser(),
-    joinedRSOs: []
+    joinedRSOs: null
   };
 
   componentDidMount() {
     Axios.get('http://localhost:8080/user/getRsos', {
       params: { username: this.state.user.username }
     }).then(res => {
-      this.state.joinedRSOs(res.data);
+      this.setState({
+        joinedRSOs: res.data.map(rso => {
+          <Segment>{rso}</Segment>;
+        })
+      });
     });
   }
   onSignOut = () => {
@@ -57,11 +61,7 @@ class Profile extends React.Component {
             </Card.Content>
           </Card>
           <Modal.Description>
-            <Segment>
-              {this.state.joinedRSOs.map(rso => {
-                <Segment>{rso}</Segment>;
-              })}
-            </Segment>
+            <Segment>{this.state.joinedRSOs}</Segment>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>

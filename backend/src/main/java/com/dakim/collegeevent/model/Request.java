@@ -3,11 +3,10 @@ package com.dakim.collegeevent.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Entity
-@Table(name = "rsos")
-public class RSO {
+@Table(name = "requests")
+public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -27,30 +26,6 @@ public class RSO {
     @ManyToOne
     @JoinColumn(name = "university")
     private University university;
-
-    @ManyToMany
-    @JoinTable(
-            name = "rso_members",
-            joinColumns = @JoinColumn(name = "rso_member"),
-            inverseJoinColumns = @JoinColumn(name = "rso")
-    )
-    Set<User> members;
-
-    public University getUniversity() {
-        return university;
-    }
-
-    public void setUniversity(University university) {
-        this.university = university;
-    }
-
-    public Set<User> getMembers() {
-        return members;
-    }
-
-    public void setMembers(Set<User> members) {
-        this.members = members;
-    }
 
     public int getId() {
         return id;
@@ -83,4 +58,13 @@ public class RSO {
     public void setAdmin(User admin) {
         this.admin = admin;
     }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
 }
+

@@ -1,5 +1,6 @@
 package com.dakim.collegeevent.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -22,6 +23,9 @@ public class Event {
     @Column(name = "event_description")
     private String description;
 
+    @Column(name = "event_category")
+    private String category;
+
     @NotNull
     @Column(name = "start_time")
     private Date start;
@@ -32,39 +36,39 @@ public class Event {
 
     @NotNull
     @Column(name = "privacy_level")
-    private String privacyLevel;
+    private String privacyLevel = "public";
 
     @NotBlank
-    @Column(name="google_place_id")
+    @Column(name = "google_place_id")
     private String googlePlaceId;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "contact")
     private Contact contact;
 
     @ManyToOne
-    @JoinColumn(name = "rso_id")
+    @JoinColumn(name = "rso")
     private RSO rso;
 
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tagged_events",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private Set<Category> tags;
+    @ManyToOne
+    @JoinColumn(name="university")
+    private University university;
 
-    public Set<Category> getTags() {
-        return tags;
+    @JsonIgnore
+    @OneToMany(mappedBy = "event")
+    Set<Comment> comments;
+
+    public Set<Comment> getComments() {
+        return comments;
     }
 
-    public void setTags(Set<Category> tags) {
-        this.tags = tags;
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public int getId() {
@@ -89,6 +93,14 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Date getStart() {
@@ -145,5 +157,13 @@ public class Event {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 }

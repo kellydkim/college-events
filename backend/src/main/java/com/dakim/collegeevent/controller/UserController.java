@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
-    class Login {
-        String username;
-        String password;
-    }
 
     @Autowired
     UserRespository userRepository;
@@ -52,9 +48,22 @@ public class UserController {
     @PostMapping("/login")
     public User login(@RequestBody User user) {
         User validUser = userRepository.getByUsername(user.getUsername());
+        if (validUser == null) {
+            return validUser;
+        }
         if (bCryptPasswordEncoder.matches(user.getPassword(), validUser.getPassword())) {
             return validUser;
         }
         return null;
+    }
+
+    @PutMapping("/updateRole")
+    public void updateRole(@RequestBody Map<String, String> roleMap) {
+        userRepository.updateRoleByUsername(roleMap.get("role"), roleMap.get("username"));
+    }
+
+    @GetMapping("/getRsos")
+    public List<String> getRsos(@RequestParam String username)  {
+        return userRepository.getAllRsos(username);
     }
 }

@@ -1,0 +1,21 @@
+ _____       _     _      
+|  __ \     (_)   | |     
+| |  \/_   _ _  __| | ___ 
+| | __| | | | |/ _` |/ _ \
+| |_\ \ |_| | | (_| |  __/
+ \____/\__,_|_|\__,_|\___|
+
+Files Explained:
+  database-creation: sql commands for creating tables
+  database-populate: sql commands for populating the database with dummy data
+  database-setup: sql commands for creating the database and creating a user and granting privileges
+  backend: all files for the spring boot application
+  frontend: all files for the react application
+
+How to start:
+  backend: 
+    required: mvn, java
+    navigate to backend folder and run 'mvn package'. Once the target file is generated, run 'java -jar "the generated jar file"'
+  frontend:
+    required: npm
+    navigate to frontend folder and run 'npm install' then 'npm start'

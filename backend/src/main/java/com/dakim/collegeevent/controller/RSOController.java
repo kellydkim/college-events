@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/rso")
@@ -27,5 +28,15 @@ public class RSOController {
     @PostMapping("/add")
     public RSO post(@Valid @RequestBody RSO rso) {
         return rsoRepository.save(rso);
+    }
+
+    @GetMapping("/getByAdmin")
+    public List<RSO> getByAdmin(@RequestParam String admin)   {
+        return rsoRepository.getByAdmin(admin);
+    }
+
+    @PostMapping("/addMember")
+    public void addRsoMembers(@RequestBody Map<String, String> rsoMemberForm)   {
+        rsoRepository.addRSOMembers(rsoMemberForm.get("rso"), rsoMemberForm.get("rsoMember"));
     }
 }

@@ -10,4 +10,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query(value = "SELECT * FROM events WHERE start_time BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY) ORDER BY start_time", nativeQuery = true)
     List<Event> getUpcoming();
 
+    @Query(value = "SELECT * FROM events WHERE university=?1", nativeQuery = true)
+    List<Event> getByUniversity(String university);
 }

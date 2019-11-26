@@ -1,5 +1,7 @@
 package com.dakim.collegeevent.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
@@ -9,10 +11,6 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @NotBlank
     private String username;
 
     @NotBlank
@@ -25,15 +23,19 @@ public class User {
     private String role = "student";
 
     @OneToOne
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "email")
     private Contact contact;
 
     @ManyToOne
-    @JoinColumn(name = "univ_id")
+    @JoinColumn(name = "university")
     private University university;
 
     @ManyToMany(mappedBy = "members")
     Set<RSO> rsos;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    Set<Comment> comments;
 
     public Set<RSO> getRsos() {
         return rsos;
@@ -41,14 +43,6 @@ public class User {
 
     public void setRsos(Set<RSO> rsos) {
         this.rsos = rsos;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -97,5 +91,13 @@ public class User {
 
     public void setUniversity(University university) {
         this.university = university;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }

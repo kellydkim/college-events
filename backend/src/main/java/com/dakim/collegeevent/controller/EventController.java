@@ -30,4 +30,9 @@ public class EventController {
     public Event post(@Valid @RequestBody Event event) {
         return eventRepository.save(event);
     }
+
+    @GetMapping("/getByUniversity")
+    public List<Event> getByUniversity(@RequestParam String university) {
+        return eventRepository.getByUniversity(university);
+    }
 }

@@ -8,15 +8,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "universities")
 public class University {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @NotBlank
-    @Column(unique = true)
     private String name;
 
     @NotBlank
-    @Column(name="google_place_id")
+    @Column(name="google_place_id", unique = true)
     private String googlePlaceId;
 
     @Column(name = "univ_description")
@@ -27,14 +22,6 @@ public class University {
 
     @Column(name = "image_url")
     private String imageURL;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

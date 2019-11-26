@@ -1,13 +1,13 @@
 package com.dakim.collegeevent.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "contacts")
 public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String email;
 
     @Column(name = "f_name")
     private String firstName;
@@ -15,19 +15,9 @@ public class Contact {
     @Column(name = "l_name")
     private String lastName;
 
-    @Column(unique = true)
-    private String email;
-
+    @NotBlank
     @Column(name = "phone_no")
     private String phoneNo;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
